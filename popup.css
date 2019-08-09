@@ -17,17 +17,19 @@ h1 {
 }
 .link {
     padding: 5px 0px;
+    cursor: pointer;
 }
 .remove {
     font-size: 16px;
     padding-top: 5px;
-    display: none;
+    visibility: hidden;
+    cursor: pointer;
 }
 .domain_row:hover {
     color: #000000;
 }
 .domain_row:hover .remove {
-    display: block;
+    visibility: visible;
 }
 #controll_line {
     padding: 8px;
