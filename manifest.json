@@ -10,15 +10,15 @@
     ],
 
     "icons": {
-        "16" : "Owl-16.png",
-        "32" : "Owl-32.png",
-        "48" : "Owl-48.png",
-        "128" : "Owl-128.png"
+        "16" : "16.png",
+        "32" : "32.png",
+        "48" : "48.png",
+        "128" : "128.png"
     },
 
     "browser_action": {
         "default_title": "change domain",
-        "default_icon": "Owl-48.png",
+        "default_icon": "48.png",
         "default_popup": "popup.html"
     }
 }

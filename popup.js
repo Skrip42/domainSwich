@@ -8,14 +8,18 @@ document.addEventListener('DOMContentLoaded', function() {
         function drowList(links) {
             var linkListHtml = "";
             var i = 0;
-            for (i = 0; i < links.length; i++) {
-                if (links[i] === currentUrl.hostname) continue;
-                linkListHtml += '<tr class="domain_row">'
-                    + '<td class="link" link="' + links[i] + '">' 
-                    + links[i] 
-                    + '</td>'
-                    + '<td><i class="remove material-icons color-u" link="' + links[i] + '">delete</i></td>'
-                    + '</tr>'
+            if (typeof links === "undefined" || links.length < 2) {
+                linkListHtml += '<tr><td class="color-u">change domain name and add yout first alias</td></tr>'
+            } else {
+                for (i = 0; i < links.length; i++) {
+                    if (links[i] === currentUrl.hostname) continue;
+                    linkListHtml += '<tr class="domain_row">'
+                        + '<td class="link" link="' + links[i] + '">' 
+                        + links[i] 
+                        + '</td>'
+                        + '<td><i class="remove material-icons color-u" link="' + links[i] + '">delete</i></td>'
+                        + '</tr>'
+                }
             }
             const domainListElement = document.getElementById('domainList');
             domainListElement.innerHTML = linkListHtml;
@@ -53,6 +57,9 @@ document.addEventListener('DOMContentLoaded', function() {
             ['domainList'], 
             function (result) {
                 var domainList = result.domainList;
+                if (typeof domainList === 'undefined') {
+                    domainList = [];
+                }
                 var currentSetId = searchSetByValue(domainList, currentUrl.hostname)
                 if (currentSetId < 0) {
                     currentSetId = domainList.length;
@@ -93,6 +100,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         drowList(domainList[currentSetId]);
                     }
                 })
+                //update when url change
+                chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+                    currentUrl = new URL(tab.url);
+                    const inputUrl = document.getElementById('aliaseInput');
+                    inputUrl.value = currentUrl.hostname;
+                    currentSetId = searchSetByValue(domainList, currentUrl.hostname);
+                    drowList(domainList[currentSetId]);
+                });
             }
         );
     })
