@@ -25,10 +25,19 @@ h1 {
     visibility: hidden;
     cursor: pointer;
 }
+.edit {
+    font-size: 16px;
+    padding-top: 5px;
+    visibility: hidden;
+    cursor: pointer;
+}
 .domain_row:hover {
     color: #000000;
 }
 .domain_row:hover .remove {
+    visibility: visible;
+}
+.domain_row:hover .edit {
     visibility: visible;
 }
 #controll_line {

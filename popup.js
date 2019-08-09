@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         + '<td class="link" link="' + links[i] + '">' 
                         + links[i] 
                         + '</td>'
+                        + '<td><i class="edit material-icons color-u" link="' + links[i] + '">create</i></td>'
                         + '<td><i class="remove material-icons color-u" link="' + links[i] + '">delete</i></td>'
                         + '</tr>'
                 }
@@ -94,10 +95,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             tab.id, 
                             {url: tab.url.replace(currentUrl.hostname, e.target.getAttribute('link'))}
                         )
-                    } else if(e.target.classList.contains('remove')) {
+                    } else if (e.target.classList.contains('remove')) {
                         domainList[currentSetId].splice(domainList[currentSetId].indexOf(e.target.getAttribute('link')), 1);
                         saveChange(domainList);
                         drowList(domainList[currentSetId]);
+                    } else if (e.target.classList.contains('edit')) {
+
                     }
                 })
                 //update when url change
