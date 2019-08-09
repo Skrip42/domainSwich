@@ -1,0 +1,59 @@
+* {
+    font-size: 14px;
+    margin: 0px;
+}
+h1 {
+    margin:0px;
+    padding: 5px;
+    white-space: nowrap;
+}
+#domainList {
+    padding: 5px 10px;
+    /*padding: 10px 10px 10px 10px;*/
+    width: 100%;
+}
+.domain_row {
+    line-height: 20px;
+}
+.link {
+    padding: 5px 0px;
+}
+.remove {
+    font-size: 16px;
+    padding-top: 5px;
+    display: none;
+}
+.domain_row:hover {
+    color: #000000;
+}
+.domain_row:hover .remove {
+    display: block;
+}
+#controll_line {
+    padding: 8px;
+}
+#aliaseInput {
+    width: calc(100% - 30px);
+    float: left;
+}
+#addButton {
+    font-size: 18px;
+    padding: 3px 0px 1px 6px;
+    float: left;
+}
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.color-u {
+    color: #8d8d8d;
+}
+.color-b {
+    background-color: #E1E2E1;
+    color: #222222;
+}
+.color-p-dark {
+    background-color: #29434e;
+    color: #ffffff;
+}
