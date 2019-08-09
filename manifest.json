@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
 
-    "name": "domain changer",
+    "name": "domain quick changer",
     "version": "1.0",
 
     "permissions": [
