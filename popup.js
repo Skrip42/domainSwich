@@ -100,7 +100,23 @@ document.addEventListener('DOMContentLoaded', function() {
                         saveChange(domainList);
                         drowList(domainList[currentSetId]);
                     } else if (e.target.classList.contains('edit')) {
-
+                        var targetElement = e.target;
+                        if (document.getElementById('editRowInput')) {
+                            var link = targetElement.getAttribute('link');
+                            drowList(domainList[currentSetId]);
+                            targetElement = document.querySelector('.edit[link="' + link + '"]');
+                        }
+                        var edithtml = '<td><input id="editRowInput" type="text" value="' + targetElement.getAttribute('link') + '"></td>';
+                        edithtml += '<td><i class="material-icons done" link="' + targetElement.getAttribute('link') + '"> done </i></td>';
+                        edithtml += '<td><i class="material-icons cansel"> clear </i></td>';
+                        targetElement.parentNode.parentNode.innerHTML = edithtml;
+                    } else if (e.target.classList.contains('cansel')) {
+                        drowList(domainList[currentSetId]);
+                    } else if (e.target.classList.contains('done')) {
+                        domainList[currentSetId][domainList[currentSetId].indexOf(e.target.getAttribute('link'))]
+                            = document.getElementById('editRowInput').value;
+                        saveChange(domainList);
+                        drowList(domainList[currentSetId]);
                     }
                 })
                 //update when url change
