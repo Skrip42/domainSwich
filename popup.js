@@ -42,7 +42,13 @@ document.addEventListener('DOMContentLoaded', function() {
             endloop:
                 for (currentSetId = 0; currentSetId < domainList.length; currentSetId++) {
                     for (currentUrlId = 0; currentUrlId < domainList[currentSetId].length; currentUrlId++) {
-                        if (domainList[currentSetId][currentUrlId] === value) {
+                        var dotPattern = new RegExp('\\.', 'g');
+                        var starPattern = new RegExp('\\*', 'g');
+                        var pattern = domainList[currentSetId][currentUrlId].replace(dotPattern, '\\.');
+                        pattern = pattern.replace(starPattern, '[^.]+');
+                        console.log(pattern);
+                        pattern = new RegExp('^' + pattern + '$', '');
+                        if (pattern.test(value)) {
                             empty = false;
                             break endloop;
                         }
@@ -91,9 +97,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 //row action
                 document.getElementById('domainList').addEventListener('click', function (e) {
                     if (e.target.classList.contains('link')) {
+                        var link = e.target.getAttribute('link').split('.');
+                        var currentHost = currentUrl = new URL(tab.url).hostname.split('.');
+                        console.log(link, currentHost);
+                        for (var i = 0; i < link.length; i++) {
+                            if (link[i] === '*') {
+                                if (typeof currentHost[i] == 'undefined') {
+                                    return;
+                                }
+                                link[i] = currentHost[i];
+                            }
+                        }
+                        link = link.join('.');
+                        currentHost = currentHost.join('.');
+                        console.log(link, currentHost);
                         chrome.tabs.update(
                             tab.id, 
-                            {url: tab.url.replace(currentUrl.hostname, e.target.getAttribute('link'))}
+                            {url: tab.url.replace(currentHost, link)}
                         )
                     } else if (e.target.classList.contains('remove')) {
                         domainList[currentSetId].splice(domainList[currentSetId].indexOf(e.target.getAttribute('link')), 1);
@@ -107,8 +127,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             targetElement = document.querySelector('.edit[link="' + link + '"]');
                         }
                         var edithtml = '<td><input id="editRowInput" type="text" value="' + targetElement.getAttribute('link') + '"></td>';
-                        edithtml += '<td><i class="material-icons done" link="' + targetElement.getAttribute('link') + '"> done </i></td>';
-                        edithtml += '<td><i class="material-icons cansel"> clear </i></td>';
+                        edithtml += '<td><i class="material-icons done color-u" link="' + targetElement.getAttribute('link') + '"> done </i></td>';
+                        edithtml += '<td><i class="material-icons cansel color-u"> clear </i></td>';
                         targetElement.parentNode.parentNode.innerHTML = edithtml;
                     } else if (e.target.classList.contains('cansel')) {
                         drowList(domainList[currentSetId]);

@@ -19,18 +19,21 @@ h1 {
     padding: 5px 0px;
     cursor: pointer;
 }
-.remove {
+.remove,.edit,.done,.cansel {
     font-size: 16px;
     padding-top: 5px;
-    visibility: hidden;
+    /*visibility: hidden;*/
     cursor: pointer;
 }
-.edit {
-    font-size: 16px;
-    padding-top: 5px;
+.remove,.edit {
     visibility: hidden;
-    cursor: pointer;
 }
+/*.edit {*/
+    /*font-size: 16px;*/
+    /*padding-top: 5px;*/
+    /*visibility: hidden;*/
+    /*cursor: pointer;*/
+/*}*/
 .domain_row:hover {
     color: #000000;
 }
